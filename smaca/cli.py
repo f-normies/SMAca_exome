@@ -40,7 +40,7 @@ from smaca.sma import SmaCalculator
 def main(profile, output, bam_list, ncpus, reference):
     """
     Spinal Muscular Atrophy Carrier Analysis tool. Detect putative SMA carriers
-    and estimate the absolute SMN1 copy-number in a population.
+    and estimate the absolute SMN1 copy-number in a population. Fork specifically tuned for WES.
 
     """
 
