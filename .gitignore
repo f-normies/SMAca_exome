@@ -150,3 +150,6 @@ output.*
 
 #pycharm
 .idea
+
+#conda
+environment.yml
