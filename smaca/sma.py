@@ -119,6 +119,32 @@ class SmaCalculator:
             self.c_ix[:] = c_ix_memmap[:]
             self.dup_id[:] = dup_id_memmap[:]
 
+        # Господи, прости меня за следующие 20 строчек...
+        normalization_coefficients = {
+            'ENSE00001753715': 0.046151,
+            'ENSE00003475744,ENSE00003668148': 0.122551,
+            'ENSE00000772493,ENSE00001941691': 0.15162,
+            'ENSE00002439297,ENSE00002496679,ENSE00003480889,ENSE00003539428': 0.042917,
+            'ENSE00000876091': 0.106286,
+            'ENSE00003519976,ENSE00003611519': 0.079418,
+            'ENSE00001131925': 0.068724,
+            'ENSE00003472458,ENSE00003679784': 0.106278,
+            'ENSE00003714360,ENSE00004030467': 0.075521,
+            'ENSE00003550230,ENSE00003565984': 0.135094,
+            'ENSE00002163457,ENSE00003599335,ENSE00003611132': 0.079405,
+            'ENSE00003523331,ENSE00003683955': 0.073617,
+            'ENSE00000656821': 0.089068,
+            'ENSE00001147300': 0.123363,
+            'ENSE00000675982,ENSE00000675985,ENSE00002624378': 0.06351,
+            'ENSE00002626237,ENSE00003537347,ENSE00003632529': 0.070541,
+            'ENSE00003751713': 0.123798
+        }
+
+        for i, gene in enumerate(C.POSITIONS[ref]["GENES"]):
+            normalization_factor = normalization_coefficients.get(gene)
+            if normalization_factor:
+                self.H_ik[:, i] *= normalization_factor
+
         self.r_ij = self.D1_ij + self.D2_ij
         #TODO: consider using only "the bests" HK
         self.z_ik = self.c_ix.sum(axis=1).reshape((self.n_bam, 1)) / self.H_ik
